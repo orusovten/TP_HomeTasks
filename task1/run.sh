@@ -5,7 +5,7 @@ n=0
 for file in $a
 do
 cp $file $3/"$n.$2"
-n = &((n+1))
+n=$(($n+1))
 done
 
 tar -czf $4 $3
