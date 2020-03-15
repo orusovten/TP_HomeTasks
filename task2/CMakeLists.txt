@@ -24,3 +24,18 @@ add_custom_target(RunGenerator DEPENDS index.h COMMENT "Checking if re-generatio
 add_executable(C ${SOURCES})
 add_dependencies(C RunGenerator)
 target_link_libraries(C lib)
+
+######################################
+
+find_package(GTest REQUIRED)
+find_package(Threads REQUIRED)
+
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_executable(CTest C/main_test.cpp)
+target_link_libraries(CTest ${GTEST_LIBRARIES} Threads::Threads)
+add_dependencies(CTest RunGenerator)
+target_link_libraries(CTest lib)
+
+enable_testing()
+add_test(Test bin/CTest)
