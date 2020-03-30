@@ -35,6 +35,16 @@ add_executable(MainLib main_lib.cpp)
 
 target_link_libraries(MainLib buffer)
 
-if(ARM_BUILD)
-  install(TARGETS MainLib Main DESTINATION bin)
-endif()
+install(
+	TARGETS Main MainLib
+ 	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+	LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/static
+)
+
+install(
+	DIRECTORY "${CMAKE_SOURCE_DIR}/include"
+	DESTINATION ${CMAKE_INSTALL_PREFIX}
+	FILES_MATCHING
+	PATTERN "*.h"
+)
